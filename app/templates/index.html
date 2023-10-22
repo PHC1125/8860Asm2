@@ -98,8 +98,13 @@
       var gender = parseInt(genderInput.value);
 
       if (age >= 1 && age <= 99 && (gender === 0 || gender === 1)) {
+        // Generate a random output
+        var options = ["apple", "samsung", "huawei"];
+        var randomIndex = Math.floor(Math.random() * options.length);
+        var randomOutput = options[randomIndex];
+
         // Change the text
-        label.textContent = "Huawei";
+        label.textContent = randomOutput;
         label.classList.remove("error");
         showResultPopup(); // Show the result popup
       } else {
