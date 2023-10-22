@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: "STEM Light", Arial, sans-serif;
+    }
+    table {
+      margin: 0 auto;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+    input[type="number"] {
+      width: 60px;
+    }
+    .error {
+      color: red;
+    }
+    .title {
+      font-weight: bold;
+      text-align: center;
+      font-size: 24px; /* Updated font size */
+    }
+    .dotted-line {
+      border-top: 1px dotted #000;
+      margin: 20px 0;
+    }
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      border: 3px solid #114ed0;
+      border-radius: 5px;
+      width: 300px;
+      padding: 30px;
+      background-color: #f1f1f1a8;
+    }
+    .popup-title {
+      font-weight: bold;
+      margin: 0;
+    }
+    .popup-text {
+      margin: 10px 0;
+    }
+    .popup-close {
+      text-align: right;
+    }
+    .popup-close a {
+      text-decoration: none;
+      color: #000;
+    }
+    .submit-wrapper {
+      position: relative; /* Added position relative */
+    }
+    .submit-wrapper::after {
+      content: "";
+      display: block;
+      border-top: 1px dotted #000; /* Added dotted line */
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+    }
+    .result-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid #000;
+      border-radius: 5px;
+      width: 300px;
+      padding: 10px;
+      background-color: #f1f1f1;
+    }
+    .result-popup-title {
+      font-weight: bold;
+      margin: 0;
+      text-align: center;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=STEM:wght@300&display=swap" rel="stylesheet">
+  <script>
+    function changeText(event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get the input values
+      var ageInput = document.getElementById("ageInput");
+      var genderInput = document.getElementById("genderInput");
+
+      // Get the label element
+      var label = document.getElementById("responseLabel");
+
+      // Check if inputs are valid
+      var age = parseInt(ageInput.value);
+      var gender = parseInt(genderInput.value);
+
+      if (age >= 1 && age <= 99 && (gender === 0 || gender === 1)) {
+        // Change the text
+        label.textContent = "Digital";
+        label.classList.remove("error");
+        showResultPopup(); // Show the result popup
+      } else {
+        // Reset the text
+        label.textContent = "Please input a valid input value";
+        label.classList.add("error");
+      }
+    }
+
+    function showResultPopup() {
+      var resultPopup = document.getElementById("resultPopup");
+      resultPopup.style.display = "block";
+    }
+  </script>
+</head>
+<body>
+  <h1 class="title">MEDD 8860: L6 Programming Assignment Question 1</h1>
+  <div class="dotted-line"></div>
+  <table>
+    <tr>
+      <th>Insert your age (1-99):</th>
+      <td><input type="number" id="ageInput" name="age" min="1" max="99"></td>
+    </tr>
+    <tr>
+      <th>Insert your gender (0 for male, 1 for female):</th>
+      <td><input type="number" id="genderInput" name="gender" min="0" max="1"></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align: center;" class="submit-wrapper">
+        <input type="submit" onclick="changeText(event)">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align: center;">
+        <label id="responseLabel">Await response</label>
+      </td>
+    </tr>
+  </table>
+
+  <div id="popup" class="popup">
+    <h2 class="popup-title">Assignment Description</h2>
+    <p class="popup-text">It is found that the type of watch purchased by children in a school relates to ageand gender. Refer to the data file, watch.csv and predict the answers to the following questions.</p>
+    <p class="popup-close">
+      <a href="#" id="closeBtn">Close</a>
+    </p>
+  </div>
+
+  <div id="resultPopup" class="result-popup" style="display: none;">
+    <h2 class="result-popup-title">Result Generated</h2>
+  </div>
+</body>
+</html>
